@@ -1,0 +1,16 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<head>
+    <title>Display User Who Liked</title>
+</head>
+    <body>
+        
+           {% if likeusers %}
+<h2>Here's the Users:</h2>
+    <ul>
+    {% for likeuser in likeusers %}
+        <li>{{likeuser[1]}} {{likeuser[2]}}</br></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+    </body>

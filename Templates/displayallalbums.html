@@ -1,0 +1,15 @@
+<head>
+    <title>Display All Albums</title>
+</head>
+    <body>
+        
+           {% if allalbums %}
+<h2>Here's the albums:</h2>
+    <ul>
+    {% for allalbum in allalbums %}
+        <li><a href="{{url_for('displayPhotos',values=allalbum[0], value1=3)}}">{{allalbum[1]}} by {{allalbum[3]}} {{allalbum[4]}}</a></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+    </body>

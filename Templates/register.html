@@ -1,0 +1,34 @@
+<!-- author ben lawson balawson@bu.edu -->
+<head>
+    <title>Create an account!</title>
+</head>
+{%if not supress%}
+<h1> Email already in use! Use another one or <a href="/login">login</a></h1>
+{% endif %}
+    <body>
+        <div class="title">
+            <h1>Enter your information below</h1>
+        </div>
+        <div id="content">
+            <form method="post" action="{{ url_for('register_user') }}">
+                <label for="F_ame">Enter your First Name:</label>
+                <input type="text" name="F_ame" /><br />
+                <label for="L_ame">Enter your Last Name:</label>
+                <input type="text" name="L_ame" /><br />
+                <label for="email">Enter your email:</label>
+                <input type="email" name="email" /><br />
+                <label for="password">Enter password:</label>
+                <input type="password" name="password" /><br />
+                <label for="DOB">Enter your DOB:</label>
+                <input type="date" name="DOB" /><br />
+                <label for="Home_town">Enter your home town:</label>
+                <input type="text" name="Home_town" /><br />
+                <label for="Gender">Gender:</label>
+                <input type="radio" name="Gender" value="M" />Male<br />
+                <input type="radio" name="Gender" value="F" />Female<br />
+                <input type="radio" name="Gender" value="O" />Other<br />
+                <input type="submit" />
+            </form>
+         </div>
+    </body>
+<a href='/'>Home</a>

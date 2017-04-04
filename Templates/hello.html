@@ -1,0 +1,173 @@
+
+<!doctype html>
+{% if message %}
+  <h4>{{message}}!</h4>
+{% endif %}
+<title>Photoshare</title>
+{% if name %}
+  <h1>Hello {{ name }}!</h1>
+{% endif %}
+
+
+{% if message is none %}
+  <p>You should <a href='/login'>login!</a></p>
+{% else %}
+  <p> Go to <a href='/profile'>profile?</a></p>
+{% endif %}
+
+<ul>
+<li><form method="post" action='/search'><label for="tags">Search:</label><input type="text" name="tags" /><input type="submit" /></form></li> 
+<li><a href='/create_album'>Create an album</a> </li>
+<li><a href="{{ url_for('render_addfriend')}}">Add Friends</a></li>
+<li><a href="{{ url_for('display_all_albums')}}">Display Albums</a></li>
+<li><a href="{{ url_for('you_May_Also_Like')}}">You May Also Like</a></li>
+
+<li><a href='/logout'>Logout</a></li>
+<li><a href='/'>Home</a></li>
+
+{% if photos %}
+<h2>Here's your photos</h2>
+    <ul>
+    {% for photo in photos %}
+        <li>{{photo[2]}}</br><img src='data:image/png;base64, {{photo[0]}}'/></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+
+{% if albums %}
+<h2>Here's your albums</h2>
+   
+    <!-- <ul>
+    {% for album in albums %}
+        <form method="post" action="{{ url_for('displayPhotos',values=album[0])}}">
+        <li><label for="AlbumID">{{album[1]}}</label>
+        <input type="Submit" name="AlbumID" value="View Album" />
+        </form></li>{% endfor %}
+    </ul>
+        </ul> -->
+         <ul>
+    {% for album in albums %}
+        
+        <li><form method="post" action="{{ url_for('delete_album', value=album[0], value1=5)}}"><a href="{{url_for('displayPhotos',values=album[0])}}">{{album[1]}}</a><input type="submit" value="Delete ALBUM"></form>
+        </li>{% endfor %}
+    </ul>
+        </ul>
+{% endif %}
+{% if friends %}
+ <h2>Here's your Friends</h2>
+   
+    <!-- <ul>
+    {% for album in albums %}
+        <form method="post" action="{{ url_for('displayPhotos',values=album[0])}}">
+        <li><label for="AlbumID">{{album[1]}}</label>
+        <input type="Submit" name="AlbumID" value="View Album" />
+        </form></li>{% endfor %}
+    </ul>
+        </ul> -->
+         <ul>
+    {% for friend in friends %}
+        
+        <li>{{friend[0]}} {{friend[1]}}
+        </li>{% endfor %}
+    </ul>
+        </ul> 
+{% endif %}
+    {% if tags %}
+<h2>Here's your tags</h2>
+   
+    <!-- <ul>
+    {% for album in albums %}
+        <form method="post" action="{{ url_for('displayPhotos',values=album[0])}}">
+        <li><label for="AlbumID">{{album[1]}}</label>
+        <input type="Submit" name="AlbumID" value="View Album" />
+        </form></li>{% endfor %}
+    </ul>
+        </ul> -->
+         <ul>
+    {% for tag in tags %}
+        
+        <li><a href="{{ url_for('display_tag_photos', value=tag[0], value1=0)}}">{{tag[1]}}</a>
+        </li>{% endfor %}
+    </ul>
+        </ul>
+{% endif %}
+
+{% if othertags %}
+<h2>Here's other tags</h2>
+   
+    <!-- <ul>
+    {% for album in albums %}
+        <form method="post" action="{{ url_for('displayPhotos',values=album[0])}}">
+        <li><label for="AlbumID">{{album[1]}}</label>
+        <input type="Submit" name="AlbumID" value="View Album" />
+        </form></li>{% endfor %}
+    </ul>
+        </ul> -->
+         <ul>
+    {% for othertag in othertags %}
+        
+        <li><a href="{{ url_for('display_tag_photos', value=othertag[0], value1= 2)}}">{{othertag[1]}}</a>
+        </li>{% endfor %}
+    </ul>
+        </ul>
+{% endif %}
+
+{% if top10tags %}
+<h2>Here's top 10 tags</h2>
+   
+  
+         <ul>
+    {% for top10tag in top10tags %}
+        
+        <li><a href="{{ url_for('display_tag_photos', value=top10tag[0], value1= 1)}}">{{top10tag[1]}}</a>
+        </li>{% endfor %}
+    </ul>
+        </ul>
+{% endif %}
+ 
+{% if top10users %}
+<h2>Here's top 10 users</h2>
+   
+  
+         <ul>
+    {% for top10user in top10users %}
+        
+        <li>{{top10user[1]}} {{top10user[2]}}
+        </li>{% endfor %}
+    </ul>
+        </ul>
+{% endif %}    
+        <!-- {% for photo in photos %}
+        <li><form method="post" action="{{ url_for('delete_photo', value=photo[1], value1=albumid)}}">{{photo[2]}}</br><img src='data:image/png;base64, {{photo[0]}}'/><input type="submit" value="Delete Photo"></form></li>
+    {% endfor %} 
+         -->
+     <!-- <form method="post" action="{{ url_for('register_user') }}">
+                <label for="F_ame">Enter your First Name:</label>
+                <input type="text" name="F_ame" /><br />
+                <label for="L_ame">Enter your Last Name:</label>
+                <input type="text" name="F_ame" /><br />
+                <label for="email">Enter your email:</label>
+                <input type="email" name="email" /><br />
+                <label for="password">Enter password:</label>
+                <input type="password" name="password" /><br />
+                <label for="DOB">Enter your DOB:</label>
+                <input type="date" name="DOB" /><br />
+                <label for="Home_town">Enter your home town:</label>
+                <input type="text" name="Home_town" /><br />
+                <label for="Gender">Gender:</label>
+                <input type="radio" name="Gender" value="M" />Male<br />
+                <input type="radio" name="Gender" value="F" />Female<br />
+                <input type="radio" name="Gender" value="O" />Other<br />
+                <input type="submit" />
+            </form>    -->
+
+    
+
+<!-- </form>
+</ul>
+
+  <label for="Home_town">Enter your home town:</label>
+                <input type="text" name="Home_town" /><br />
+                <label for="Gender">Gender:</label>
+                <input type="radio" name="Gender" value="M" />Male<br />

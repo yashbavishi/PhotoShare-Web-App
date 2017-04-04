@@ -1,0 +1,15 @@
+<head>
+    <title>Display Comments</title>
+</head>
+    <body>
+        
+           {% if usercomments %}
+<h2>Here's the comments:</h2>
+    <ul>
+    {% for usercomment in usercomments %}
+        <li>{{usercomment[1]}} {{usercomment[2]}}:</br>{{usercomment[3]}}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+    </body>

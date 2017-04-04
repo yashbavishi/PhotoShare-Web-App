@@ -1,0 +1,105 @@
+<!doctype html>
+
+
+{% if message %}
+  <h4>{{message}}!</h4>
+{% endif %}
+
+<ul>
+{% if uploadflag == 5 %}
+<li><a href="{{url_for('upload_file',value1=albumid)}}",>Upload a photo</a> </li> 
+{% endif %}
+<li><a href='/logout'>Logout</a></li>
+<li><a href='/'>Home</a></li>
+</ul>
+{% if photos %}
+<h2>Here's the photos</h2>
+    <ul>
+    {% for photo in photos %}
+        <li><form method="post" action="{{ url_for('delete_photo', value=photo[1], value1=albumid)}}">{{photo[2]}}</br><img src='data:image/png;base64, {{photo[0]}}'/><input type="submit" value="Delete Photo"></form></br>
+        {% if uid != 4 %}
+        <form method="post" action="{{ url_for('like_photo', value=photo[1], value1=1) }}"><input type="Submit" value="Like" /></form>No. of Likes: {{photo[3]}}</br>
+        <form method="post" action="{{ url_for('display_like_users', value=photo[1], value1=1) }}"><input type="Submit" value="Display Users Who Liked this Photo" /></form>
+        {% endif %}
+        {% if flag == '3' %}
+        <form method="post" action="{{ url_for('add_comment', value=photo[1], value1=3) }}">
+        <label for = "text">Enter Comment:</label><input type="text" name="text" />
+       <input type="Submit" value="Add Comment" /></form>{% endif %}
+        <form method="post" action="{{ url_for('display_comments', value=photo[1], value1=1) }}"><input type="Submit" value="Display Comments" /></form><br /></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if tagphotos %}
+<h2>Here's your photos with this tag</h2>
+    <ul>
+    {% for tagphoto in tagphotos %}
+        <li>{{tagphoto[0]}}</br><img src='data:image/png;base64, {{tagphoto[1]}}'/></br>
+        <form method="post" action="{{ url_for('like_photo', value=tagphoto[2], value1=2) }}"><input type="Submit" value="Like" /></form>No. of Likes: {{tagphoto[3]}}</br>
+        <form method="post" action="{{ url_for('display_like_users', value=tagphoto[2], value1=1) }}"><input type="Submit" value="Display Users Who Liked this Photo" /></form>
+        <form method="post" action="{{ url_for('display_comments', value=tagphoto[2], value1=1) }}"><input type="Submit" value="Display Comments" /></form><br /></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if tag1photos %}
+<h5> </h5>
+<h2>Here's your photos with this tag</h2>
+    <ul>
+    {% for tag1photo in tag1photos %}
+        <li>{{tag1photo[0]}}</br><img src='data:image/png;base64, {{tag1photo[1]}}'/></br>
+        <form method="post" action="{{ url_for('like_photo', value=tag1photo[2], value1=3) }}"><input type="Submit" value="Like" /></form>No. of Likes: {{tag1photo[3]}}</br>
+        <form method="post" action="{{ url_for('display_like_users', value=tag1photo[2], value1=1) }}"><input type="Submit" value="Display Users Who Liked this Photo" /></form>
+        <form method="post" action="{{ url_for('display_comments', value=tag1photo[2], value1=1) }}"><input type="Submit" value="Display Comments" /></form><br /></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if notusertagphotos %}
+<h6> </h6>
+<h2>Here's other photos with this tag</h2>
+    <ul>
+    {% for notusertagphoto in notusertagphotos %}
+        <li>{{notusertagphoto[0]}}</br><img src='data:image/png;base64, {{notusertagphoto[1]}}'/></br>
+        <form method="post" action="{{ url_for('like_photo', value=notusertagphoto[2], value1=3) }}"><input type="Submit" value="Like" /></form>No. of Likes: {{notusertagphoto[3]}}</br>
+        <form method="post" action="{{ url_for('display_like_users', value=notusertagphoto[2], value1=1) }}"><input type="Submit" value="Display Users Who Liked this Photo" /></form>
+        <form method="post" action="{{ url_for('add_comment', value=notusertagphoto[2], value1=1) }}">
+        <label for = "text">Enter Comment:</label><input type="text" name="text" />
+        <input type="Submit" value="Add Comment" /></form>
+        <form method="post" action="{{ url_for('display_comments', value=notusertagphoto[2], value1=1) }}"><input type="Submit" value="Display Comments" /></form><br /></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if tagsearchphotos %}
+<h2>Here's the photos</h2>
+    <ul>
+    {% for tagsearchphoto in tagsearchphotos %}
+        <li>{{tagsearchphoto[0]}}</br><img src='data:image/png;base64, {{tagsearchphoto[1]}}'/></br>
+        <form method="post" action="{{ url_for('like_photo', value=tagsearchphoto[2], value1=4 )}}"><input type="Submit" value="Like" /></form>No. of Likes: {{tagsearchphoto[3]}}</br>
+        <form method="post" action="{{ url_for('display_like_users', value=tagsearchphoto[2], value1=1) }}"><input type="Submit" value="Display Users Who Liked this Photo" /></form>
+        {% if tagsearchphoto[3] != uid %}
+        <form method="post" action="{{ url_for('add_comment', value=tagsearchphoto[2], value1=2) }}">
+        <label for = "text">Enter Comment:</label><input type="text" name="text" />
+       <input type="Submit" value="Add Comment" /></form>{% endif %}
+        <form method="post" action="{{ url_for('display_comments', value=tagsearchphoto[2], value1=1) }}"><input type="Submit" value="Display Comments" /></form><br /></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if usermaylikePhotos %}
+<h2>Here's the photos</h2>
+    <ul>
+    {% for usermaylikePhoto in usermaylikePhotos %}
+        <li>{{usermaylikePhoto[0]}}</br><img src='data:image/png;base64, {{usermaylikePhoto[1]}}'/></br>
+        <form method="post" action="{{ url_for('like_photo', value=usermaylikePhoto[2], value1=5 )}}"><input type="Submit" value="Like" /></form>No. of Likes: {{usermaylikePhoto[3]}}</br>
+        <form method="post" action="{{ url_for('display_like_users', value=usermaylikePhoto[2], value1=1) }}"><input type="Submit" value="Display Users Who Liked this Photo" /></form>
+        
+        <form method="post" action="{{ url_for('add_comment', value=usermaylikePhoto[2], value1=4) }}">
+        <label for = "text">Enter Comment:</label><input type="text" name="text" />
+       <input type="Submit" value="Add Comment" /></form>
+        <form method="post" action="{{ url_for('display_comments', value=usermaylikePhoto[2], value1=1) }}"><input type="Submit" value="Display Comments" /></form><br /></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
